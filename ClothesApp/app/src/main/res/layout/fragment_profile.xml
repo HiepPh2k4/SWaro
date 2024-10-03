@@ -18,7 +18,8 @@
             android:fontFamily="@font/good_font"
             android:textSize="40sp"
             android:textStyle="bold"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
 
@@ -43,7 +44,8 @@
                 android:fontFamily="@font/good_font"
                 android:text="Username"
                 android:textStyle="bold"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,7 +54,8 @@
                 android:text="Date of Birth"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,7 +64,8 @@
                 android:text="Height"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,7 +74,9 @@
                 android:text="Weight"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -86,7 +92,8 @@
                 android:textStyle="bold"
                 android:text="Mitoma"
                 android:textSize="20sp"
-                />
+                android:textColor="@color/black" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,7 +102,8 @@
                 android:text="6/9/1420"
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"
-                />
+                android:textColor="@color/black"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,7 +112,8 @@
                 android:text="183 cm"
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"
-                />
+                android:textColor="@color/black"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,7 +122,7 @@
                 android:text="73 kg"
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"
-                />
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 

@@ -50,19 +50,7 @@ public class SettingActivity extends AppCompatActivity {
                 loaProfileFragment();
             }
         });
-
-
-
-
     }
-
-//    private void loadFragment(Fragment fragment) {
-//        Log.d("SettingActivity", "Loading fragment: " + fragment.getClass().getSimpleName());
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.fragment_container, fragment)
-//                .addToBackStack(null)
-//                .commit();
-//    }
 
     public void loadLanguageFragment() {
 
@@ -102,4 +90,12 @@ public class SettingActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    public void showSettingsButtons() {
+        backButton.setVisibility(View.VISIBLE);
+        languageButton.setVisibility(View.VISIBLE);
+        themeButton.setVisibility(View.VISIBLE);
+        profileButton.setVisibility(View.VISIBLE);
+    }
+
 }

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,11 +7,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/logo_header">
         </ImageView>
+
     </LinearLayout>
 
     <LinearLayout
@@ -29,12 +30,14 @@
             android:layout_height="wrap_content"
             android:src="@drawable/duyanh"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/smart_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AI Suggestion"
-            android:layout_marginLeft="200dp"/>
+            android:layout_marginLeft="200dp"
+            android:background="@drawable/button_border"
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 
@@ -42,33 +45,38 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
-        <Button
-            android:id="@+id/warobe_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wardrobe"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:textSize="20sp"
-            android:padding="16dp"
-            android:background="@drawable/button_border"
-            android:fontFamily="@font/good_font"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <Button
-            android:id="@+id/settings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:layout_marginLeft="45dp"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/warobe_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Wardrobe"
             android:textSize="20sp"
             android:padding="16dp"
             android:background="@drawable/button_border"
             android:fontFamily="@font/good_font"
             android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_marginEnd="5dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/settings_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Settings"
+            android:textSize="20sp"
+            android:padding="16dp"
+            android:background="@drawable/button_border"
+            android:fontFamily="@font/good_font"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"/>
+
     </LinearLayout>
 
 </RelativeLayout>

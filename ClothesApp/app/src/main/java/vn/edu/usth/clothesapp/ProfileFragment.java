@@ -22,8 +22,12 @@ public class ProfileFragment extends Fragment {
         view.findViewById(R.id.back_button1).setOnClickListener(v -> {
             if (getActivity() != null) {
                 ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
+
+                SettingActivity activity = (SettingActivity) getActivity();
+                activity.showSettingsButtons();
             }
         });
+
         return view;
     }
 }

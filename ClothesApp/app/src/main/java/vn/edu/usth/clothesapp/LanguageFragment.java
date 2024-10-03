@@ -23,13 +23,19 @@ public class LanguageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_language, container, false);
 
         Spinner mySpinner = view.findViewById(R.id.language_spinner);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.language_array, android.R.layout.simple_spinner_item);
-
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.language_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         mySpinner.setAdapter(adapter);
 
+        view.findViewById(R.id.back_button3).setOnClickListener(v -> {
+            if (getActivity() != null) {
+                ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
+
+                SettingActivity activity = (SettingActivity) getActivity();
+                activity.showSettingsButtons();
+            }
+        });
 
         return view;
     }
