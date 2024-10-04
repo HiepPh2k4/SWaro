@@ -1,32 +1,42 @@
-package vn.edu.usth.clothesapp;
+package vn.edu.usth.clothesapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import vn.edu.usth.clothesapp.fragment.LanguageFragment;
+import vn.edu.usth.clothesapp.fragment.ProfileFragment;
+import vn.edu.usth.clothesapp.R;
+import vn.edu.usth.clothesapp.fragment.ThemeFragment;
+
 public class SettingActivity extends AppCompatActivity {
-    Button backButton, languageButton, themeButton, profileButton;
+    Button languageButton, themeButton, profileButton;
+    ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_activity);
 
-
-        backButton = findViewById(R.id.back_button);
         languageButton = findViewById(R.id.language_button);
         themeButton = findViewById(R.id.theme_button);
         profileButton = findViewById(R.id.profile_button);
 
+        backButton = findViewById(R.id.close_setting_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                // Start MainActivity when the back button is clicked
+                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish(); // Optional, finishes the SettingActivity
             }
         });
 
@@ -51,6 +61,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void loadLanguageFragment() {
 
