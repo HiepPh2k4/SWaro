@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import vn.edu.usth.clothesapp.R;
 import vn.edu.usth.clothesapp.fragment.LanguageFragment;
 import vn.edu.usth.clothesapp.fragment.ProfileFragment;
-import vn.edu.usth.clothesapp.R;
 import vn.edu.usth.clothesapp.fragment.ThemeFragment;
 
 public class SettingActivity extends AppCompatActivity {
@@ -32,81 +32,50 @@ public class SettingActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Start MainActivity when the back button is clicked
+                // Directly return to MainActivity
                 Intent intent = new Intent(SettingActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish(); // Optional, finishes the SettingActivity
+                finish();
             }
         });
 
         languageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadLanguageFragment();
+                loadFragment(new LanguageFragment());
             }
         });
 
         themeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadThemeFragment();
+                loadFragment(new ThemeFragment());
             }
         });
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loaProfileFragment();
+                loadFragment(new ProfileFragment());
             }
         });
     }
 
-
-    public void loadLanguageFragment() {
-
-        backButton.setVisibility(View.GONE);
-        themeButton.setVisibility(View.GONE);
-        languageButton.setVisibility(View.GONE);
-        profileButton.setVisibility(View.GONE);
-        Fragment languageFragment = new LanguageFragment();
+    private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, languageFragment);
-        transaction.addToBackStack(null);
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null); // Add to back stack so back button works correctly
         transaction.commit();
     }
 
-    public void loadThemeFragment() {
-
-        backButton.setVisibility(View.GONE);
-        themeButton.setVisibility(View.GONE);
-        languageButton.setVisibility(View.GONE);
-        profileButton.setVisibility(View.GONE);
-        Fragment themeFragment = new ThemeFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, themeFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    @Override
+    public void onBackPressed() {
+        // Check if there are any fragments on the back stack
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack(); // Go back to SettingActivity if fragments are in stack
+        } else {
+            super.onBackPressed(); // Default back behavior if no fragments are in stack
+        }
     }
-
-    public void loaProfileFragment() {
-
-        backButton.setVisibility(View.GONE);
-        themeButton.setVisibility(View.GONE);
-        languageButton.setVisibility(View.GONE);
-        profileButton.setVisibility(View.GONE);
-        Fragment profileFragment = new ProfileFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, profileFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    public void showSettingsButtons() {
-        backButton.setVisibility(View.VISIBLE);
-        languageButton.setVisibility(View.VISIBLE);
-        themeButton.setVisibility(View.VISIBLE);
-        profileButton.setVisibility(View.VISIBLE);
-    }
-
 }

@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,14 +20,24 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Check if MainActivity was opened directly
+        if (!getIntent().getBooleanExtra("fromBodyActivity", false)) {
+            // If not coming from BodyActivity, redirect to RegisterActivity
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+            finish(); // Close MainActivity to enforce registration flow
+            return;
+        }
+
         setContentView(R.layout.activity_main);
 
         viewPager2 = findViewById(R.id.view_pager);
         bottomNavigationView = findViewById(R.id.bottom_nav);
-
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
@@ -44,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         bottomNavigationView.getMenu().findItem(R.id.wardrobe).setChecked(true);
+                        break;
                     case 1:
                         bottomNavigationView.getMenu().findItem(R.id.upload_image).setChecked(true);
                         break;
@@ -64,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

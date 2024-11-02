@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="vn.edu.usth.clothesapp">
 
     <application
         android:allowBackup="true"
@@ -13,16 +14,35 @@
         android:theme="@style/Base.Theme.ClothesApp"
         tools:targetApi="31">
 
+        <!-- RegisterActivity: The first activity shown to the user -->
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.WarobeActivity" />
+
+        <!-- LoginActivity -->
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="true" />
+
+        <!-- BodyActivity -->
+        <activity
+            android:name=".activity.BodyActivity"
+            android:exported="true" />
+
+        <!-- MainActivity: Only shown after the user completes registration, login, and body info steps -->
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true" />
+
+        <!-- SettingActivity: Accessed from MainActivity -->
+        <activity
+            android:name=".activity.SettingActivity"
+            android:exported="true" />
 
     </application>
 
