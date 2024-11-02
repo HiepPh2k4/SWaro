@@ -1,0 +1,112 @@
+package vn.edu.usth.clothesapp.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import vn.edu.usth.clothesapp.fragment.LanguageFragment;
+import vn.edu.usth.clothesapp.fragment.ProfileFragment;
+import vn.edu.usth.clothesapp.R;
+import vn.edu.usth.clothesapp.fragment.ThemeFragment;
+
+public class SettingActivity extends AppCompatActivity {
+    Button languageButton, themeButton, profileButton;
+    ImageButton backButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.setting_activity);
+
+        languageButton = findViewById(R.id.language_button);
+        themeButton = findViewById(R.id.theme_button);
+        profileButton = findViewById(R.id.profile_button);
+
+        backButton = findViewById(R.id.close_setting_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start MainActivity when the back button is clicked
+                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish(); // Optional, finishes the SettingActivity
+            }
+        });
+
+        languageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadLanguageFragment();
+            }
+        });
+
+        themeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadThemeFragment();
+            }
+        });
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loaProfileFragment();
+            }
+        });
+    }
+
+
+    public void loadLanguageFragment() {
+
+        backButton.setVisibility(View.GONE);
+        themeButton.setVisibility(View.GONE);
+        languageButton.setVisibility(View.GONE);
+        profileButton.setVisibility(View.GONE);
+        Fragment languageFragment = new LanguageFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, languageFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void loadThemeFragment() {
+
+        backButton.setVisibility(View.GONE);
+        themeButton.setVisibility(View.GONE);
+        languageButton.setVisibility(View.GONE);
+        profileButton.setVisibility(View.GONE);
+        Fragment themeFragment = new ThemeFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, themeFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void loaProfileFragment() {
+
+        backButton.setVisibility(View.GONE);
+        themeButton.setVisibility(View.GONE);
+        languageButton.setVisibility(View.GONE);
+        profileButton.setVisibility(View.GONE);
+        Fragment profileFragment = new ProfileFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, profileFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void showSettingsButtons() {
+        backButton.setVisibility(View.VISIBLE);
+        languageButton.setVisibility(View.VISIBLE);
+        themeButton.setVisibility(View.VISIBLE);
+        profileButton.setVisibility(View.VISIBLE);
+    }
+
+}
