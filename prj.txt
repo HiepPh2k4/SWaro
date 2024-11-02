@@ -1,0 +1,6 @@
+mongodb_project/
+│
+├── config.py                 # Tệp cấu hình kết nối MongoDB
+├── db_operations.py          # Các thao tác CRUD với MongoDB
+├── main.py                   # Chương trình chính để chạy
+└── requirements.txt          # Tệp khai báo các thư viện cần thiết
