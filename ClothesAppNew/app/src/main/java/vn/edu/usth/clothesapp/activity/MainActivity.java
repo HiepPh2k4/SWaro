@@ -4,24 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager2.widget.ViewPager2;
-
+import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import vn.edu.usth.clothesapp.R;
-import vn.edu.usth.clothesapp.adapter.PagerAdapter;
+import vn.edu.usth.clothesapp.fragment.WardrobeFragment;  // Giả sử đây là fragment của mục "Wardrobe"
+import vn.edu.usth.clothesapp.fragment.UploadImageFragment;  // Giả sử đây là fragment của mục "Upload Image"
 
 public class MainActivity extends AppCompatActivity {
-        ViewPager2 viewPager2;
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
 
@@ -30,45 +24,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewPager2 = findViewById(R.id.view_pager);
         bottomNavigationView = findViewById(R.id.bottom_nav);
-
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        PagerAdapter adapter = new PagerAdapter(this);
-        viewPager2.setAdapter(adapter);
-        viewPager2.setOffscreenPageLimit(3);
-
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                switch (position) {
-                    case 0:
-                        bottomNavigationView.getMenu().findItem(R.id.wardrobe).setChecked(true);
-                        break;
-                    case 1:
-                        bottomNavigationView.getMenu().findItem(R.id.upload_image).setChecked(true);
-                        break;
-                }
-            }
-        });
+        // Thiết lập fragment mặc định khi mở ứng dụng
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new WardrobeFragment())
+                    .commit();
+        }
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selectedFragment = null;
                 int itemId = item.getItemId();
+
                 if (itemId == R.id.wardrobe) {
-                    viewPager2.setCurrentItem(0, true);
+                    selectedFragment = new WardrobeFragment();
                 } else if (itemId == R.id.upload_image) {
-                    viewPager2.setCurrentItem(1, true);
+                    selectedFragment = new UploadImageFragment();
+                }
+
+                if (selectedFragment != null) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, selectedFragment)
+                            .commit();
                 }
                 return true;
             }
         });
-    }
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
