@@ -16,10 +16,12 @@ public class PagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
-            default:
-                return new WardrobeFragment();
             case 0:
                 return new UploadImageFragment();
+            case 1:
+                return new WardrobeFragment();
+            default:
+                return new WardrobeFragment();
         }
     }
 
