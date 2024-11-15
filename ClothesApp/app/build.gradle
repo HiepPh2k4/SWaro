@@ -25,6 +25,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
 }
 
@@ -37,4 +38,8 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    implementation 'org.mongodb:mongodb-driver-sync:3.12.10'}
+    /*implementation 'org.mongodb:mongodb-driver-sync:4.4.0'
+    implementation 'org.mongodb:mongodb-driver-reactivestreams:4.4.0'*/
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'}

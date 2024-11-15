@@ -1,7 +1,10 @@
 package vn.edu.usth.clothesapp.activity;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +20,14 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import vn.edu.usth.clothesapp.ApiService.RetrofitClient;
+import vn.edu.usth.clothesapp.db.ClothingItem;
+import vn.edu.usth.clothesapp.ApiService.ServiceApi;
 import vn.edu.usth.clothesapp.R;
 import vn.edu.usth.clothesapp.adapter.PagerAdapter;
 
@@ -30,6 +41,46 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ServiceApi serviceApi = RetrofitClient.getClient().create(ServiceApi.class);
+
+        serviceApi.getClothingItems().enqueue(new Callback<List<ClothingItem>>() {
+            @Override
+            public void onResponse(Call<List<ClothingItem>> call, Response<List<ClothingItem>> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    List<ClothingItem> clothingItems = response.body();
+                    for (ClothingItem item : clothingItems){
+                        Log.d(TAG, "Item Name" + item.getItemName());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ClothingItem>> call, Throwable t) {
+                Log.e(TAG, "Error fetching data: " + t.getMessage());
+            }
+        });
+
+
+        // Thêm một item quần áo mới
+        ClothingItem newItem = new ClothingItem("C002", "u002", "Blue T-Shirt", "Top", "Casual",
+                "Blue", "Cotton", "M", "Adidas", "Winter",
+                "Everyday", "http://example.com/clothing.jpg",
+                "http://example.com/model.glb");
+        serviceApi.addClothingItem(newItem).enqueue(new Callback<ClothingItem>() {
+            @Override
+            public void onResponse(Call<ClothingItem> call, Response<ClothingItem> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d(TAG, "Added Item Name: " + response.body().getItemName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ClothingItem> call, Throwable t) {
+                Log.e(TAG, "Error adding item: " + t.getMessage());
+            }
+        });
+
 
         WebView webView = findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
