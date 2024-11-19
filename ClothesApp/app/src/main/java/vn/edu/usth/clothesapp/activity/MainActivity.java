@@ -62,24 +62,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        // Thêm một item quần áo mới
-        ClothingItem newItem = new ClothingItem("C002", "u002", "Blue T-Shirt", "Top", "Casual",
-                "Blue", "Cotton", "M", "Adidas", "Winter",
-                "Everyday", "http://example.com/clothing.jpg",
-                "http://example.com/model.glb");
-        serviceApi.addClothingItem(newItem).enqueue(new Callback<ClothingItem>() {
+        serviceApi = RetrofitClient.getClient().create(ServiceApi.class);
+
+        // Tạo một ClothingItem mới
+        ClothingItem newItem = new ClothingItem(
+                "c002", "u002", "Red T-Shirt", "Top", "Casual",
+                "Red", "Cotton", "L", "Nike", "Summer", "Everyday",
+                "http://example.com/clothing.jpg","dadadadasdad"
+        );
+
+        // Gửi dữ liệu tới server
+        Call<ClothingItem> call = serviceApi.addClothingItem(newItem);
+        call.enqueue(new Callback<ClothingItem>() {
             @Override
             public void onResponse(Call<ClothingItem> call, Response<ClothingItem> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Log.d(TAG, "Added Item Name: " + response.body().getItemName());
+                if (response.isSuccessful()) {
+                    Log.d("MainActivity", "Thêm thành công: " + response.body());
+                } else {
+                    Log.e("MainActivity", "Lỗi: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<ClothingItem> call, Throwable t) {
-                Log.e(TAG, "Error adding item: " + t.getMessage());
+                Log.e("MainActivity", "Lỗi kết nối: " + t.getMessage());
             }
         });
+
 
 
         WebView webView = findViewById(R.id.webView);

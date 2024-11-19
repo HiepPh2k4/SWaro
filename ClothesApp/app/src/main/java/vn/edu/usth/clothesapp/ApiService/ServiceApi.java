@@ -11,14 +11,14 @@ import vn.edu.usth.clothesapp.db.ClothingItem;
 
 public interface ServiceApi {
     // Lấy danh sách các item quần áo
-    @GET("clothingitems")
+    @GET("ClothingItems")
     Call<List<ClothingItem>> getClothingItems();
 
     // Thêm một item quần áo mới
-    @POST("clothingitems")
+    @POST("ClothingItems")
     Call<ClothingItem> addClothingItem(@Body ClothingItem clothingItem);
 
     // Lấy thông tin item quần áo theo ID
-    @GET("clothingitems/{id}")
+    @GET("ClothingItems/{id}")
     Call<ClothingItem> getClothingItemById(@Path("id") String id);
 }
