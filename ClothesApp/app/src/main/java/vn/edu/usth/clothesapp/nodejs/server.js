@@ -34,15 +34,15 @@ const ClothingItemSchema = new mongoose.Schema({
 
 });
 
-const ClothingItem = mongoose.model('ClothingItems', ClothingItemSchema);
+const ClothingItems = mongoose.model('ClothingItems', ClothingItemSchema,'ClothingItems');
 
 // API Endpoints
 
 // Get all clothing items
 app.get('/ClothingItems', async (req, res) => {
     try {
-        const clothingItems = await ClothingItem.find();
-        res.status(200).json(clothingItems);
+        const items = await ClothingItems.find();
+        res.status(200).json(items);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -50,11 +50,14 @@ app.get('/ClothingItems', async (req, res) => {
 
 // Add a new clothing item
 app.post('/ClothingItems', async (req, res) => {
+    console.log('Received Data:', req.body);
     try {
-        const newClothingItem = new ClothingItem(req.body);
+        const newClothingItem = new ClothingItems(req.body);
         await newClothingItem.save();
+        console.log('Saved Item:', newClothingItem);
         res.status(201).json(newClothingItem);
     } catch (err) {
+        console.error('Error:', err);
         res.status(500).json({ error: err.message });
     }
 });
@@ -62,9 +65,9 @@ app.post('/ClothingItems', async (req, res) => {
 // Get clothing item by ID
 app.get('/ClothingItems/:id', async (req, res) => {
     try {
-        const clothingItem = await ClothingItem.findById(req.params.id);
-        if (!clothingItem) return res.status(404).json({ message: 'Clothing item not found' });
-        res.status(200).json(clothingItem);
+        const ClothingItem = await ClothingItems.findById(req.params.id);
+        if (!ClothingItem) return res.status(404).json({ message: 'Clothing item not found' });
+        res.status(200).json(ClothingItem);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -73,7 +76,7 @@ app.get('/ClothingItems/:id', async (req, res) => {
 // Update a clothing item by ID
 app.put('/ClothingItems/:id', async (req, res) => {
     try {
-        const updatedClothingItem = await ClothingItem.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedClothingItem = await ClothingItems.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedClothingItem) return res.status(404).json({ message: 'Clothing item not found' });
         res.status(200).json(updatedClothingItem);
     } catch (err) {
@@ -84,7 +87,7 @@ app.put('/ClothingItems/:id', async (req, res) => {
 // Delete a clothing item by ID
 app.delete('/ClothingItems/:id', async (req, res) => {
     try {
-        const deletedClothingItem = await ClothingItem.findByIdAndDelete(req.params.id);
+        const deletedClothingItem = await ClothingItems.findByIdAndDelete(req.params.id);
         if (!deletedClothingItem) return res.status(404).json({ message: 'Clothing item not found' });
         res.status(200).json({ message: 'Clothing item deleted' });
     } catch (err) {

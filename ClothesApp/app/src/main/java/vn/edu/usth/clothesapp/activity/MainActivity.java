@@ -64,30 +64,46 @@ public class MainActivity extends AppCompatActivity {
 
         serviceApi = RetrofitClient.getClient().create(ServiceApi.class);
 
-        // Tạo một ClothingItem mới
-        ClothingItem newItem = new ClothingItem(
-                "c002", "u002", "Red T-Shirt", "Top", "Casual",
-                "Red", "Cotton", "L", "Nike", "Summer", "Everyday",
-                "http://example.com/clothing.jpg","dadadadasdad"
-        );
-
-        // Gửi dữ liệu tới server
-        Call<ClothingItem> call = serviceApi.addClothingItem(newItem);
-        call.enqueue(new Callback<ClothingItem>() {
+        String itemIdToDelete = "673f05a3aec8cafea591015d"; // Thay bằng ObjectId của item cần xóa
+        serviceApi.deleteClothingItem(itemIdToDelete).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<ClothingItem> call, Response<ClothingItem> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Log.d("MainActivity", "Thêm thành công: " + response.body());
+                    Log.d("MainActivity", "Item deleted successfully");
                 } else {
-                    Log.e("MainActivity", "Lỗi: " + response.errorBody());
+                    Log.e("MainActivity", "Error deleting item: " + response.errorBody());
                 }
             }
 
             @Override
-            public void onFailure(Call<ClothingItem> call, Throwable t) {
-                Log.e("MainActivity", "Lỗi kết nối: " + t.getMessage());
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("MainActivity", "Error: " + t.getMessage());
             }
         });
+//        // Tạo một ClothingItem mới
+//        ClothingItem newItem = new ClothingItem(
+//                "c002", "u002", "Red T-Shirt", "Top", "Casual",
+//                "Red", "Cotton", "L", "Nike", "Summer", "Everyday",
+//                "http://example.com/clothing.jpg","dadadadasdad"
+//        );
+//
+//        // Gửi dữ liệu tới server
+//        Call<ClothingItem> call = serviceApi.addClothingItem(newItem);
+//        call.enqueue(new Callback<ClothingItem>() {
+//            @Override
+//            public void onResponse(Call<ClothingItem> call, Response<ClothingItem> response) {
+//                if (response.isSuccessful()) {
+//                    Log.d("MainActivity", "Thêm thành công: " + response.body());
+//                } else {
+//                    Log.e("MainActivity", "Lỗi: " + response.errorBody());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ClothingItem> call, Throwable t) {
+//                Log.e("MainActivity", "Lỗi kết nối: " + t.getMessage());
+//            }
+//        });
 
 
 

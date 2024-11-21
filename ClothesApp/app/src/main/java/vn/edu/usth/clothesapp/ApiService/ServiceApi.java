@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -21,4 +22,7 @@ public interface ServiceApi {
     // Lấy thông tin item quần áo theo ID
     @GET("ClothingItems/{id}")
     Call<ClothingItem> getClothingItemById(@Path("id") String id);
+
+    @DELETE("ClothingItems/{id}")
+    Call<Void> deleteClothingItem(@Path("id") String id);
 }
