@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,137 +6,58 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/border">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
-            android:fontFamily="@font/good_font"
-            android:text="Profile"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/close_profile_button"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="150dp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/baseline_close_24"
-            />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/border"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="80dp"
-        android:padding="20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/good_font"
-                android:text="Username"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/good_font"
-                android:text="Date of Birth"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/good_font"
-                android:text="Height"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/good_font"
-                android:text="Weight"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/current_user_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/good_font"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:textAlignment="textStart"
+                    android:text="USER 1"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/button_border"
+                android:backgroundTint="@color/black"
+                android:text="Login"
+                android:textColor="@color/white"
                 android:fontFamily="@font/good_font"
                 android:textStyle="bold"
-                android:text="Mitoma"
-                android:textSize="20sp"
-                android:textColor="@color/black" />
+                android:textSize="25dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/register_button"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_border"
+                android:backgroundTint="@color/black"
+                android:text="Register"
+                android:textColor="@color/white"
                 android:fontFamily="@font/good_font"
                 android:textStyle="bold"
-                android:text="6/9/1420"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/good_font"
-                android:textStyle="bold"
-                android:text="183 cm"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/good_font"
-                android:textStyle="bold"
-                android:text="73 kg"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black"/>
+                android:textSize="25dp" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import vn.edu.usth.clothesapp.fragment.ThemeFragment;
 public class SettingActivity extends AppCompatActivity {
     Button languageButton, themeButton, profileButton;
     ImageButton backButton;
+    TextView titleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,9 @@ public class SettingActivity extends AppCompatActivity {
         languageButton = findViewById(R.id.language_button);
         themeButton = findViewById(R.id.theme_button);
         profileButton = findViewById(R.id.profile_button);
-
+        titleTextView = findViewById(R.id.title_text);  // Lấy TextView tiêu đề
         backButton = findViewById(R.id.close_setting_button);
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,10 +68,11 @@ public class SettingActivity extends AppCompatActivity {
 
     public void loadLanguageFragment() {
 
-        backButton.setVisibility(View.GONE);
         themeButton.setVisibility(View.GONE);
         languageButton.setVisibility(View.GONE);
         profileButton.setVisibility(View.GONE);
+        titleTextView.setText("Language");
+
         Fragment languageFragment = new LanguageFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, languageFragment);
@@ -78,10 +82,11 @@ public class SettingActivity extends AppCompatActivity {
 
     public void loadThemeFragment() {
 
-        backButton.setVisibility(View.GONE);
         themeButton.setVisibility(View.GONE);
         languageButton.setVisibility(View.GONE);
         profileButton.setVisibility(View.GONE);
+        titleTextView.setText("Theme");
+
         Fragment themeFragment = new ThemeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, themeFragment);
@@ -91,10 +96,11 @@ public class SettingActivity extends AppCompatActivity {
 
     public void loaProfileFragment() {
 
-        backButton.setVisibility(View.GONE);
         themeButton.setVisibility(View.GONE);
         languageButton.setVisibility(View.GONE);
         profileButton.setVisibility(View.GONE);
+        titleTextView.setText("Profile");
+
         Fragment profileFragment = new ProfileFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, profileFragment);

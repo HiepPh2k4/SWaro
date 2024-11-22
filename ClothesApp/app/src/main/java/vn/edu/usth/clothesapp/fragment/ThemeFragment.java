@@ -62,15 +62,7 @@ public class ThemeFragment extends Fragment {
             }
         });
 
-        ImageButton closetheme = view.findViewById(R.id.close_theme_button);
-        closetheme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Start MainActivity when the back button is clicked
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+
         return view;
     }
 }

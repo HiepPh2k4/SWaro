@@ -34,23 +34,8 @@ public class LanguageFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(adapter);
 
-//        view.findViewById(R.id.back_button3).setOnClickListener(v -> {
-//            if (getActivity() != null) {
-//                ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
-//
-//                SettingActivity activity = (SettingActivity) getActivity();
-//                activity.showSettingsButtons();
-//            }
-//        });
-        ImageButton closelanguage = view.findViewById(R.id.close_language_button);
-        closelanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Start MainActivity when the back button is clicked
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
 
         return view;
     }
