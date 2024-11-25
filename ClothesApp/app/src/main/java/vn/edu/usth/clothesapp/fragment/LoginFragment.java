@@ -40,16 +40,16 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        EditText useridEditText = view.findViewById(R.id.username_edit_text); // Thay đổi cho phù hợp với Userid
+        EditText userIDEditText = view.findViewById(R.id.username_edit_text); // Thay đổi cho phù hợp với UserID
         EditText passwordEditText = view.findViewById(R.id.password_edit_text);
         Button loginButton = view.findViewById(R.id.login_submit_button);
 
         loginButton.setOnClickListener(v -> {
-            String userid = useridEditText.getText().toString();
+            String userID = userIDEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
-            if (!userid.isEmpty() && !password.isEmpty()) {
-                loginUser(userid, password);
+            if (!userID.isEmpty() && !password.isEmpty()) {
+                loginUser(userID, password);
             } else {
                 Toast.makeText(getActivity(), "Please enter all fields", Toast.LENGTH_SHORT).show();
             }
@@ -58,11 +58,11 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private void loginUser(String userid, String password) {
+    private void loginUser(String userID, String password) {
         // Tạo JSON object cho dữ liệu gửi lên server
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("Userid", userid);
+            jsonObject.put("UserID", userID); // Trường "UserID" cần trùng khớp với backend
             jsonObject.put("PasswordHash", password);
         } catch (JSONException e) {
             Log.e(TAG, "JSON Exception: " + e.getMessage());
@@ -99,7 +99,7 @@ public class LoginFragment extends Fragment {
                     String errorMessage = response.body() != null ? response.body().string() : "Unknown error";
                     Log.e(TAG, "API Response Error: " + errorMessage);
                     getActivity().runOnUiThread(() ->
-                            Toast.makeText(getActivity(), "Login failed: Wrong Userid or Password" , Toast.LENGTH_SHORT).show());
+                            Toast.makeText(getActivity(), "Login failed: Wrong UserID or Password", Toast.LENGTH_SHORT).show());
                 }
             }
         });
