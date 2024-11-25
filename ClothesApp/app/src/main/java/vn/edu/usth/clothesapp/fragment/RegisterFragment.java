@@ -30,8 +30,8 @@ import vn.edu.usth.clothesapp.R;
 public class RegisterFragment extends Fragment {
 
     private static final String TAG = "RegisterFragment";
-    private static final String REGISTER_URL = "http://10.0.2.2:5000/register";
-    private final OkHttpClient client = new OkHttpClient();
+    private static final String REGISTER_URL = "http://10.0.2.2:5000/register"; // Địa chỉ API (10.0.2.2 là localhost khi dùng emulator)
+    private final OkHttpClient client = new OkHttpClient(); // OkHttpClient để gọi API
 
     @Nullable
     @Override
@@ -39,34 +39,41 @@ public class RegisterFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
-        EditText useridEditText = view.findViewById(R.id.username_edit_text); // Sửa username thành userid
-        EditText passwordEditText = view.findViewById(R.id.password_edit_text);
-        EditText confirmPasswordEditText = view.findViewById(R.id.confirm_password_edit_text);
-        Button registerButton = view.findViewById(R.id.register_submit_button);
+        // Ánh xạ các EditText và Button từ layout
+        EditText userIDEditText = view.findViewById(R.id.username_edit_text); // UserID input
+        EditText passwordEditText = view.findViewById(R.id.password_edit_text); // Password input
+        EditText confirmPasswordEditText = view.findViewById(R.id.confirm_password_edit_text); // Confirm password input
+        Button registerButton = view.findViewById(R.id.register_submit_button); // Register button
 
+        // Lắng nghe sự kiện click của nút đăng ký
         registerButton.setOnClickListener(v -> {
-            String userid = useridEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
-            String confirmPassword = confirmPasswordEditText.getText().toString();
+            String userID = userIDEditText.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
+            String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
-            if (!userid.isEmpty() && !password.isEmpty() && password.equals(confirmPassword)) {
-                registerUser(userid, password);
+            // Kiểm tra tính hợp lệ của dữ liệu
+            if (userID.isEmpty() || password.isEmpty()) {
+                Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            } else if (!password.equals(confirmPassword)) {
+                Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getActivity(), "Please check your entries", Toast.LENGTH_SHORT).show();
+                // Gửi yêu cầu đăng ký
+                registerUser(userID, password);
             }
         });
 
         return view;
     }
 
-    private void registerUser(String userid, String password) {
-        // Tạo JSON object cho dữ liệu gửi lên server
+    private void registerUser(String userID, String password) {
+        // Tạo JSON object chứa dữ liệu gửi lên server
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("Userid", userid);
+            jsonObject.put("UserID", userID); // Trường "UserID" cần trùng khớp với backend
             jsonObject.put("PasswordHash", password);
         } catch (JSONException e) {
             Log.e(TAG, "JSON Exception: " + e.getMessage());
+            Toast.makeText(getActivity(), "Failed to create registration data", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -76,32 +83,37 @@ public class RegisterFragment extends Fragment {
                 MediaType.parse("application/json; charset=utf-8")
         );
 
-
-        // Tạo Request
+        // Tạo Request và cấu hình API
         Request request = new Request.Builder()
-                .url(REGISTER_URL)
-                .post(requestBody)
+                .url(REGISTER_URL) // URL API từ server
+                .post(requestBody) // Gửi dữ liệu bằng POST
                 .build();
 
-        // Thực hiện API call
+        // Thực hiện API call qua OkHttpClient
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.e(TAG, "API Call Failed: " + e.getMessage());
-                getActivity().runOnUiThread(() ->
-                        Toast.makeText(getActivity(), "Registration failed. Try again.", Toast.LENGTH_SHORT).show());
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() ->
+                            Toast.makeText(getActivity(), "Registration failed. Please check your connection.", Toast.LENGTH_SHORT).show());
+                }
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    getActivity().runOnUiThread(() ->
-                            Toast.makeText(getActivity(), "Registration successful!", Toast.LENGTH_SHORT).show());
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(() ->
+                                Toast.makeText(getActivity(), "Registration successful!", Toast.LENGTH_SHORT).show());
+                    }
                 } else {
                     String errorMessage = response.body() != null ? response.body().string() : "Unknown error";
                     Log.e(TAG, "API Response Error: " + errorMessage);
-                    getActivity().runOnUiThread(() ->
-                            Toast.makeText(getActivity(), "Registration failed: " + errorMessage, Toast.LENGTH_SHORT).show());
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(() ->
+                                Toast.makeText(getActivity(), "Registration failed: " + errorMessage, Toast.LENGTH_SHORT).show());
+                    }
                 }
             }
         });
